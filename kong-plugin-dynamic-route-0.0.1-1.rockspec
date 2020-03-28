@@ -10,7 +10,7 @@ local pluginName = "dynamic-route"
 supported_platforms = {"linux", "macosx"}
 source = {
   url = "git://github.com/samngms/kong-plugin-dynamic-route",
-  tag = "0.0.10"
+  tag = "0.0.1"
 }
 
 description = {

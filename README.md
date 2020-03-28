@@ -2,7 +2,7 @@
 
 A dynamic route plugin for Kong API Gateway
 
-[![Build Status](https://travis-ci.org/samngms/kong-plugin-dynamic-route.svg?branch=master)](https://travis-ci.org/samngms/kong-plugin-dynamic-route) 
+[![Build Status](https://travis-ci.org/samngms/kong-plugin-dynamic-route.svg?branch=master)](https://travis-ci.org/samngms/kong-plugin-dynamic-route) &nbsp; [![LuaRocks](https://img.shields.io/badge/-LuaRocks-blue)](https://luarocks.org/modules/samngms/kong-plugin-dynamic-route)
 
 The following are global config parameters
 

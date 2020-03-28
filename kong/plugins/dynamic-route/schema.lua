@@ -28,6 +28,7 @@ return {
                   { condition = { type = "string", required = true } },
                   { values = { type = "array" , elements = { type = "string" } } },
                   { not_values = { type = "array" , elements = { type = "string" } } },
+                  { case_sensitive = { type = "boolean", default = true } },
                   { dynamic_host = { type = "string" } },
                   { dynamic_port = { type = "number" } },
                   { dynamic_upstream = { type = "string"} }
@@ -56,6 +57,7 @@ return {
                   { condition = { type = "string", required = true } },
                   { values = { type = "array" , elements = { type = "string" } } },
                   { not_values = { type = "array" , elements = { type = "string" } } },
+                  { case_sensitive = { type = "boolean", default = true } },
                   { dynamic_host = { type = "string" } },
                   { dynamic_port = { type = "number" } },
                   { dynamic_upstream = { type = "string"} }

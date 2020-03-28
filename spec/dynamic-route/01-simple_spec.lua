@@ -25,7 +25,8 @@ for _, strategy in helpers.each_strategy() do
             ["*"] = {
               [1] = {
                 condition = "${query.do_it}",
-                values = {"by_host"},
+                values = {"By_Host"},
+                case_sensitive = false,
                 dynamic_host = "httpbin.org",
                 dynamic_port = 443
               },
@@ -143,7 +144,7 @@ for _, strategy in helpers.each_strategy() do
             host = "postman-echo.com",
             ["Content-Type"] = "application/x-www-form-urlencoded"
           },
-          query = "do_it=foobar"
+          query = "do_it=BY_upstream" -- case sensitive is true, so this won't match
         })
         assert.response(r).has.status(200)
         local server = assert.response(r).has.header("server")
@@ -159,7 +160,7 @@ for _, strategy in helpers.each_strategy() do
             host = "postman-echo.com",
             ["Content-Type"] = "application/x-www-form-urlencoded"
           },
-          query = "do_it=by_host"
+          query = "do_it=by_HOst" -- case insensitive, so this will match
         })
         assert.response(r).has.status(200)
         local server = assert.response(r).has.header("server")

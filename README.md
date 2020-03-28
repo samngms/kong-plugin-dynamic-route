@@ -2,6 +2,8 @@
 
 A dynamic route plugin for Kong API Gateway
 
+[![Build Status](https://travis-ci.org/samngms/kong-plugin-dynamic-route.svg?branch=master)](https://travis-ci.org/samngms/kong-plugin-dynamic-route) 
+
 The following are global config parameters
 
 | Parameter | Parameter Type | Description |
@@ -15,6 +17,7 @@ Per each url path and for each HTTP method, you can specify an array with the fo
 | `condition` | `string` | Detail description see below |
 | `values` | `string[]` | the matching value of `condition_template` to trigger the dynamic route |
 | `not_values` | `string[]` | the matching value of `condition_template` to NOT trigger the dynamic route |
+| `case_sensitive` | `boolean` | whether `values` or `not_values` should be compared in case sensitive search, default is `true` (case sensitive) |
 | `dynamic_host` | `string` | re-route the destintation to this host, you need to specify `port` as well |
 | `dynamic_port` | `number` | the port number of the new destination |
 | `dynamic_upstream` | `string` | re-route the desintation to a new upstream, this is the name of the upstream, the routing will not work if this upstream name does not exist |

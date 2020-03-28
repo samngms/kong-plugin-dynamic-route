@@ -16,10 +16,23 @@ function plugin:new()
   plugin.super.new(self, plugin_name)
 end
 
-function tableContains(table, element)
+function tableContains(table, element, case_sensitive)
+  if nil == element then
+    return false
+  end
+  local x = element
+  if nil ~= case_sensitive and not case_sensitive then
+    x = element:lower()
+  end
   for _, value in pairs(table) do
-    if value == element then
-      return true
+    if nil ~= case_sensitive and not case_sensitive then
+      if value:lower() == x then
+        return true
+      end
+    else
+      if value == x then
+        return true
+      end
     end
   end
   return false
@@ -72,11 +85,11 @@ function plugin:access(config)
     end
     local dy_route = false
     if cfg.values then
-      if tableContains(cfg.values, condition_str) then
+      if tableContains(cfg.values, condition_str, cfg.case_sensitive) then
         dy_route = true
       end
     elseif cfg.not_values then
-      if not tableContains(cfg.not_values, condition_str) then
+      if not tableContains(cfg.not_values, condition_str, cfg.case_sensitive) then
         dy_route = true
       end
     else

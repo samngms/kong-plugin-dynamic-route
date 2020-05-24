@@ -1,6 +1,6 @@
 package = "kong-plugin-dynamic-route"
-version = "0.0.1-1"
--- The version '0.0.1' is the source code version, the trailing '1' is the version of this rockspec.
+version = "0.0.2-1"
+-- The version '0.0.2' is the source code version, the trailing '1' is the version of this rockspec.
 -- whenever the source version changes, the rockspec should be reset to 1. The rockspec version is only
 -- updated (incremented) when this file changes, but the source remains the same.
 
@@ -10,7 +10,7 @@ local pluginName = "dynamic-route"
 supported_platforms = {"linux", "macosx"}
 source = {
   url = "git://github.com/samngms/kong-plugin-dynamic-route",
-  tag = "0.0.1"
+  tag = "0.0.2"
 }
 
 description = {

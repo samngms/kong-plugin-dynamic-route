@@ -21,19 +21,14 @@ for _, strategy in helpers.each_strategy() do
       local myconfig = {
         debug = true,
         exact_match = {
-          ["/get"] = {
+          ["/post"] = {
             ["*"] = {
               [1] = {
-                condition = "${query.do_it}",
-                values = {"By_Host"},
+                condition = "${body.name}",
+                not_values = {"joe"},
                 case_sensitive = false,
                 dynamic_host = "httpbin.org",
                 dynamic_port = 443
-              },
-              [2] = {
-                condition = "${query.do_it}",
-                values = {"by_upstream"},
-                dynamic_upstream = "upstream1"
               }
             }
           }
@@ -134,32 +129,32 @@ for _, strategy in helpers.each_strategy() do
       if client then client:close() end
     end)
 
-    describe("testing ", function()
+    describe("testing not_value ", function()
 
       it("No reroute", function()
         local r = assert(client:send {
-          method = "GET",
-          path = "/get",
+          method = "POST",
+          path = "/post",
           headers = {
             host = "postman-echo.com",
-            ["Content-Type"] = "application/x-www-form-urlencoded"
+            ["Content-type"] = "application/json"
           },
-          query = "do_it=BY_upstream" -- case sensitive is true, so this won't match
+          body = '{"name":"joe"}'
         })
         assert.response(r).has.status(200)
         local server = assert.response(r).has.no.header("server")
         -- default goes to postman-echo.com, there is no "Server" header in http response 
       end)
 
-      it("Reroute by host", function()
+      it("Reroute by match", function()
         local r = assert(client:send {
-          method = "GET",
-          path = "/get",
+          method = "POST",
+          path = "/post",
           headers = {
             host = "postman-echo.com",
-            ["Content-Type"] = "application/x-www-form-urlencoded"
+            ["Content-type"] = "application/json"
           },
-          query = "do_it=by_HOst" -- case insensitive, so this will match
+          body = '{"name":"mark"}'
         })
         assert.response(r).has.status(200)
         local server = assert.response(r).has.header("server")
@@ -167,22 +162,22 @@ for _, strategy in helpers.each_strategy() do
         assert.equals(server:sub(1, 8), "gunicorn")
       end)
 
-      it("Reroute by upstream", function()
+      it("Reroute with no value", function()
         local r = assert(client:send {
-          method = "GET",
-          path = "/get",
+          method = "POST",
+          path = "/post",
           headers = {
             host = "postman-echo.com",
-            ["Content-Type"] = "application/x-www-form-urlencoded"
+            ["Content-type"] = "application/json"
           },
-          query = "do_it=by_upstream"
+          body = '{"age":"mary"}'
         })
         assert.response(r).has.status(200)
         local server = assert.response(r).has.header("server")
         -- reroute to httpbin.org, the "Server" header in http response is "gunicorn/19.9.0"
         assert.equals(server:sub(1, 8), "gunicorn")
       end)
-
+      
     end)
 
   end)
